@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    [x-cloak] {
+        display: none !important;
+    }
+
+    body {
+        @apply bg-surface text-ink-900 transition-colors duration-200 dark:bg-ink-950 dark:text-ink-100;
+    }
+}
+
+/* Mode tampilan: navbar atas (default) vs sidebar kiri icon-only */
+.sidebar-nav {
+    display: none;
+}
+
+.sidebar-tooltip {
+    @apply pointer-events-none absolute left-full top-1/2 ml-2 -translate-y-1/2 whitespace-nowrap rounded-lg bg-ink-900 px-2.5 py-1.5 text-xs font-medium text-white opacity-0 shadow-soft transition-opacity duration-150 z-50;
+}
+.group:hover .sidebar-tooltip {
+    @apply opacity-100;
+}
+
+@media (min-width: 1024px) {
+    html.nav-sidebar .sidebar-nav {
+        display: flex;
+    }
+    html.nav-sidebar .topbar-nav {
+        display: none;
+    }
+    html.nav-sidebar .app-main {
+        padding-left: 5rem;
+    }
+}
+
+@layer components {
+    /* Material Symbols icon helper */
+    .icon {
+        font-family: 'Material Symbols Outlined';
+        font-weight: normal;
+        font-style: normal;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+        vertical-align: middle;
+    }
+    .icon-sm { font-size: 18px; }
+    .icon-md { font-size: 22px; }
+    .icon-lg { font-size: 28px; }
+
+    /* Buttons */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold
+               transition-all duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2
+               disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    .btn-primary {
+        @apply btn bg-brand-600 text-white shadow-soft hover:bg-brand-700 hover:shadow-card
+               focus:ring-brand-500 active:bg-brand-800;
+    }
+    .btn-secondary {
+        @apply btn bg-white text-ink-700 border border-ink-200 shadow-soft hover:bg-ink-50
+               hover:border-ink-300 focus:ring-ink-400
+               dark:bg-ink-800 dark:text-ink-100 dark:border-ink-700 dark:hover:bg-ink-700 dark:hover:border-ink-600;
+    }
+    .btn-dark {
+        @apply btn bg-ink-900 text-white shadow-soft hover:bg-ink-800 focus:ring-ink-700
+               dark:bg-white dark:text-ink-900 dark:hover:bg-ink-100;
+    }
+    .btn-danger {
+        @apply btn bg-white text-coral-600 border border-coral-200 hover:bg-coral-50
+               focus:ring-coral-400 dark:bg-ink-800 dark:border-coral-900 dark:hover:bg-ink-700;
+    }
+    .btn-success {
+        @apply btn bg-white text-mint-600 border border-mint-200 hover:bg-mint-50
+               focus:ring-mint-400 dark:bg-ink-800 dark:border-mint-900 dark:hover:bg-ink-700;
+    }
+    .btn-ghost {
+        @apply btn bg-transparent text-ink-600 hover:bg-ink-100 focus:ring-ink-300
+               dark:text-ink-300 dark:hover:bg-ink-800;
+    }
+
+    /* Surfaces */
+    .card {
+        @apply bg-white rounded-2xl border border-ink-100 shadow-card
+               dark:bg-ink-900 dark:border-ink-800;
+    }
+    .card-hover {
+        @apply card transition-shadow duration-200 hover:shadow-card-hover;
+    }
+
+    /* Avatars */
+    .avatar {
+        @apply flex items-center justify-center rounded-full font-bold shrink-0;
+    }
+    .avatar-brand {
+        @apply avatar bg-brand-100 text-brand-600 dark:bg-brand-900/40 dark:text-brand-300;
+    }
+    .avatar-coral {
+        @apply avatar bg-coral-100 text-coral-600 dark:bg-coral-900/30 dark:text-coral-300;
+    }
+    .avatar-solid {
+        @apply avatar bg-brand-600 text-white;
+    }
+
+    /* Forms */
+    .field-label {
+        @apply block text-sm font-semibold text-ink-700 mb-1.5 dark:text-ink-200;
+    }
+    .field-input {
+        @apply block w-full rounded-xl border-ink-200 bg-white text-ink-900 placeholder-ink-400 shadow-soft
+               focus:border-brand-500 focus:ring-brand-500/30 focus:ring-4 transition duration-150 sm:text-sm
+               dark:bg-ink-800 dark:border-ink-700 dark:text-ink-100 dark:placeholder-ink-500;
+    }
+    .field-select {
+        @apply field-input pr-10;
+    }
+
+    /* Badges */
+    .badge {
+        @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+    }
+    .badge-success {
+        @apply badge bg-mint-50 text-mint-700 dark:bg-mint-900/30 dark:text-mint-300;
+    }
+    .badge-neutral {
+        @apply badge bg-ink-100 text-ink-500 dark:bg-ink-800 dark:text-ink-300;
+    }
+    .badge-brand {
+        @apply badge bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300;
+    }
+    .badge-coral {
+        @apply badge bg-coral-50 text-coral-700 dark:bg-coral-900/30 dark:text-coral-300;
+    }
+
+    /* Tables */
+    .table-modern {
+        @apply min-w-full divide-y divide-ink-100 dark:divide-ink-800;
+    }
+    .table-modern thead th {
+        @apply bg-ink-50 px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-ink-500 sticky top-0
+               dark:bg-ink-800 dark:text-ink-400;
+    }
+    .table-modern tbody tr {
+        @apply transition-colors duration-150 hover:bg-surface dark:hover:bg-ink-800/60;
+    }
+    .table-modern tbody td {
+        @apply px-5 py-4 border-t border-ink-100 text-sm text-ink-600 dark:border-ink-800 dark:text-ink-300;
+    }
+
+    /* Heading & teks halaman (dipakai di header setiap halaman) */
+    .page-title {
+        @apply text-2xl md:text-3xl font-extrabold text-ink-900 tracking-tight dark:text-white;
+    }
+    .page-subtitle {
+        @apply text-ink-500 mt-1 dark:text-ink-400;
+    }
+
+    /* Toggle switch kecil untuk dark mode */
+    .theme-toggle {
+        @apply flex h-10 w-10 items-center justify-center rounded-xl text-ink-500 hover:bg-ink-100
+               dark:text-ink-300 dark:hover:bg-ink-800 transition duration-150;
+    }
+}
+
