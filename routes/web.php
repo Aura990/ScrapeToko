@@ -54,3 +54,17 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/run-migrations', function () {
+    if (request('key') === 'supersecretkey') {
+        try {
+            Artisan::call('migrate:fresh', ['--seed' => true, '--force' => true]);
+            return '<pre>' . Artisan::output() . '</pre>';
+        } catch (\Exception $e) {
+            return 'Error: ' . $e->getMessage();
+        }
+    }
+    return 'Unauthorized';
+});
